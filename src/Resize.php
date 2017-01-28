@@ -4,6 +4,7 @@ namespace wappr;
 
 class Resize
 {
+    public $hash;
     public $filename;
 
     public $width;
@@ -24,15 +25,27 @@ class Resize
         ) = getimagesize($this->filename);
     }
 
-    public function run() {
-    	foreach($this->breakpoints as $breakpoint) {
-    		echo $breakpoint . ' / ' . $this->width . "\n";
-    		$ratio =  $breakpoint / $this->width . "\n";
-    		echo "New height: " . $ratio * $this->height . "\n";
-    		if($ratio > 1) {
-    			echo 'Do not stretch image?' . "\n";
-    		}
-    		echo "\n";
-    	}
+    public function run()
+    {
+        foreach ($this->breakpoints as $breakpoint) {
+            echo $breakpoint.' / '.$this->width."\n";
+            $ratio = $breakpoint / $this->width."\n";
+            echo 'New height: '.$ratio * $this->height."\n";
+            if ($ratio > 1) {
+                echo 'Do not stretch image?'."\n";
+            }
+            echo "\n";
+        }
+        $this->hash();
+        echo $this->hash;
+    }
+
+    protected function hash()
+    {
+        $this->hash = substr(
+                sha1_file($this->filename),
+                0,
+                5
+            );
     }
 }
