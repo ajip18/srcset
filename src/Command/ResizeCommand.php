@@ -24,5 +24,6 @@ class ResizeCommand extends Command
         $output->writeln('Resizing...');
         $filename = $input->getArgument('filename');
         $resizer = new Resize($filename);
+        $resizer->run();
     }
 }
