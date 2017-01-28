@@ -6,6 +6,7 @@ class SrcSet
 {
     public static function img($image, $width, $alt, $breakpoints)
     {
+        $html = '';
         $images = '';
         $parts = pathinfo($image);
         foreach ($breakpoints as $breakpoint) {
@@ -21,6 +22,6 @@ class SrcSet
         $images = rtrim($images, ',');
         include dirname(__FILE__).'/img.php';
 
-        return $img;
+        return $html;
     }
 }

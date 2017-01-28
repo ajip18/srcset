@@ -42,7 +42,7 @@ class Resize
 
     protected function hash()
     {
-        // get the first five characters of the sum of the 
+        // get the first five characters of the sum of the
         // sha1sum of the file
         $this->hash = substr(sha1_file($this->filename), 0, 5);
     }
