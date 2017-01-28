@@ -27,10 +27,12 @@ class Resize
     public function run() {
     	foreach($this->breakpoints as $breakpoint) {
     		echo $breakpoint . ' / ' . $this->width . "\n";
-    		$ratio =  $breakpoint / $this->width . "\n\n";
+    		$ratio =  $breakpoint / $this->width . "\n";
+    		echo "New height: " . $ratio * $this->height . "\n";
     		if($ratio > 1) {
     			echo 'Do not stretch image?' . "\n";
     		}
+    		echo "\n";
     	}
     }
 }
