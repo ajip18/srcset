@@ -2,6 +2,6 @@
 
 namespace wappr;
 
-class Resize {
-	
+class Resize
+{
 }
