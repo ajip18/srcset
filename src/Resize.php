@@ -50,7 +50,7 @@ class Resize
                 echo 'Do not stretch image?'."\n";
             }
             echo "\n";
-            $newImage = imagecreatetruecolor($this->width, $this->height);
+            $newImage = imagecreatetruecolor($ratio * $this->width, $ratio * $this->height);
             imagecopyresized($newImage,
                 $this->image,
                 0, 0, 0, 0,
