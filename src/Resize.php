@@ -7,6 +7,8 @@ class Resize
     public $hash;
     public $filename;
 
+    public $image;
+
     public $width;
     public $height;
     public $type;
@@ -23,6 +25,20 @@ class Resize
             $this->type,
             $this->attr
         ) = getimagesize($this->filename);
+
+        if($this->type == "image/jpeg") {
+            $this->image = imagecreatefromjpeg($this->filename);
+        }
+        else if ($this->type == 3) {
+            $this->image = imagecreatefrompng($this->filename);
+        }
+        else if ($this->type == "image/gif") {
+            $this->image = imagecreatefromgif($this->filename);
+        }
+        $this->hash();
+        if(!file_exists(getcwd().'/'.$this->hash)) {
+            mkdir(getcwd() . '/' . $this->hash, 0777, true);
+        }
     }
 
     public function run()
@@ -31,13 +47,23 @@ class Resize
             echo $breakpoint.' / '.$this->width."\n";
             $ratio = $breakpoint / $this->width."\n";
             echo 'New height: '.$ratio * $this->height."\n";
+            echo 'New width: '.$ratio * $this->width."\n";
             if ($ratio > 1) {
                 echo 'Do not stretch image?'."\n";
             }
             echo "\n";
+            $newImage = imagecreatetruecolor($this->width, $this->height);
+            imagecopyresized($newImage,
+                $this->image,
+                0, 0, 0, 0,
+                $ratio * $this->width,
+                $ratio * $this->height,
+                $this->width,
+                $this->height
+            );
+            imagepng($newImage, getcwd().'/'.$this->hash.'/test.png');
+            imagedestroy($newImage);
         }
-        $this->hash();
-        echo $this->hash;
     }
 
     protected function hash()
