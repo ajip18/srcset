@@ -26,18 +26,16 @@ class Resize
             $this->attr
         ) = getimagesize($this->filename);
 
-        if($this->type == "image/jpeg") {
+        if ($this->type == 'image/jpeg') {
             $this->image = imagecreatefromjpeg($this->filename);
-        }
-        else if ($this->type == 3) {
+        } elseif ($this->type == 3) {
             $this->image = imagecreatefrompng($this->filename);
-        }
-        else if ($this->type == "image/gif") {
+        } elseif ($this->type == 'image/gif') {
             $this->image = imagecreatefromgif($this->filename);
         }
         $this->hash();
-        if(!file_exists(getcwd().'/'.$this->hash)) {
-            mkdir(getcwd() . '/' . $this->hash, 0777, true);
+        if (!file_exists(getcwd().'/'.$this->hash)) {
+            mkdir(getcwd().'/'.$this->hash, 0777, true);
         }
     }
 
