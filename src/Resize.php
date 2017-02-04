@@ -56,7 +56,7 @@ class Resize
             imagecopyresized($newImage,
                 $this->image,
                 0, 0, 0, 0,
-                $ratio * $this->width,
+                round($ratio * $this->width),
                 $ratio * $this->height,
                 $this->width,
                 $this->height
@@ -68,7 +68,7 @@ class Resize
 
     protected function getFilename($ratio)
     {
-        return $this->pathInfo['filename'] . '--' . $this->width * $ratio . 'w.' . $this->pathInfo['extension'];
+        return $this->pathInfo['filename'].'--'.round($this->width * $ratio).'w.'.$this->pathInfo['extension'];
     }
 
     protected function hash()

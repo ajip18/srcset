@@ -13,7 +13,7 @@ class SrcSet
             $images .= $parts['filename']
                     .'--'
                     .$breakpoint
-                    .'.'
+                    .'w.'
                     .$parts['extension']
                     .' '
                     .$breakpoint.'w'
