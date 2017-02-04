@@ -15,7 +15,7 @@ class Resize
     public $type;
     public $arr;
 
-    public $breakpoints = [320, 768, 1224, 1824];
+    public $breakpoints = [200, 274, 320, 335, 760];
 
     public function __construct($filename)
     {
@@ -39,6 +39,7 @@ class Resize
         if (!file_exists(getcwd().'/'.$this->hash)) {
             mkdir(getcwd().'/'.$this->hash, 0777, true);
         }
+        copy($this->filename, getcwd().'/'.$this->hash.'/'.$this->pathInfo['filename'] . '.'.$this->pathInfo['extension']);
     }
 
     public function run()
