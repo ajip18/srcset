@@ -6,6 +6,7 @@ class Resize
 {
     public $hash;
     public $filename;
+    public $pathInfo;
 
     public $image;
 
@@ -19,6 +20,7 @@ class Resize
     public function __construct($filename)
     {
         $this->filename = $filename;
+        $this->pathInfo = pathinfo($this->filename);
         list(
             $this->width,
             $this->height,
@@ -59,9 +61,14 @@ class Resize
                 $this->width,
                 $this->height
             );
-            imagepng($newImage, getcwd().'/'.$this->hash.'/test.png');
+            imagepng($newImage, getcwd().'/'.$this->hash.'/'.$this->getFilename($ratio));
             imagedestroy($newImage);
         }
+    }
+
+    protected function getFilename($ratio)
+    {
+        return $this->pathInfo['filename'] . '--' . $this->width * $ratio . 'w.' . $this->pathInfo['extension'];
     }
 
     protected function hash()
