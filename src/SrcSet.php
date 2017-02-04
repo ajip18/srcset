@@ -9,6 +9,7 @@ class SrcSet
         $html = '';
         $images = '';
         $parts = pathinfo($image);
+        rsort($breakpoints);
         foreach ($breakpoints as $breakpoint) {
             $images .= $parts['dirname'] .'/' .$parts['filename']
                     .'--'
@@ -17,7 +18,7 @@ class SrcSet
                     .$parts['extension']
                     .' '
                     .$breakpoint.'w'
-                    .',';
+                    .','."\n";
         }
         $images = rtrim($images, ',');
         include dirname(__FILE__).'/img.php';
