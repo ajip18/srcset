@@ -1,7 +1,7 @@
 {
   "name": "wappr/srcset",
   "description": "Resize images and generates a srcset.",
-  "version": "1.4.0",
+  "version": "1.5.0",
   "license": "MIT",
   "keywords": ["image", "resize", "srcset", "responsive"],
   "autoload": {
