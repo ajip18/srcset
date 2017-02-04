@@ -10,7 +10,7 @@ class SrcSet
         $images = '';
         $parts = pathinfo($image);
         foreach ($breakpoints as $breakpoint) {
-            $images .= $parts['filename']
+            $images .= $parts['dirname'] .'/' .$parts['filename']
                     .'--'
                     .$breakpoint
                     .'w.'
