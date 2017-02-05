@@ -20,7 +20,7 @@ class SrcSet
                     .$breakpoint.'w'
                     .','."\n";
         }
-        $images = rtrim($images, ',');
+        $images = rtrim($images, ",\n");
         include dirname(__FILE__).'/img.php';
 
         return $html;

@@ -15,7 +15,7 @@ class Resize
     public $type;
     public $arr;
 
-    public $breakpoints = [200, 274, 320, 335, 760];
+    public $breakpoints = [320, 360, 380, 410, 760];
 
     public function __construct($filename)
     {
@@ -37,9 +37,9 @@ class Resize
         }
         $this->hash();
         if (!file_exists(getcwd().'/'.$this->hash)) {
-            mkdir(getcwd().'/'.$this->hash, 0777, true);
+            mkdir(getcwd().'/images/'.$this->hash, 0777, true);
         }
-        copy($this->filename, getcwd().'/'.$this->hash.'/'.$this->pathInfo['filename'] . '.'.$this->pathInfo['extension']);
+        copy($this->filename, getcwd().'/images/'.$this->hash.'/'.$this->pathInfo['filename'] . '.'.$this->pathInfo['extension']);
     }
 
     public function run()
@@ -53,16 +53,21 @@ class Resize
                 echo 'Do not stretch image?'."\n";
             }
             echo "\n";
-            $newImage = imagecreatetruecolor($ratio * $this->width, $ratio * $this->height);
+            if(($ratio * $this->height) > 200) {
+                $height = 200;
+            } else {
+                $height = round($ratio * $this->height);
+            }
+            $newImage = imagecreatetruecolor($ratio * $this->width, $height);
             imagecopyresized($newImage,
                 $this->image,
                 0, 0, 0, 0,
                 round($ratio * $this->width),
-                $ratio * $this->height,
+                $height,
                 $this->width,
                 $this->height
             );
-            imagepng($newImage, getcwd().'/'.$this->hash.'/'.$this->getFilename($ratio));
+            imagepng($newImage, getcwd().'/images/'.$this->hash.'/'.$this->getFilename($ratio));
             imagedestroy($newImage);
         }
     }
