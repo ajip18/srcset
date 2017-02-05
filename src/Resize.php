@@ -44,6 +44,19 @@ class Resize
 
     public function run()
     {
+        $copyImage = imagecreatetruecolor($this->width, $this->height);
+        imagecopyresized($copyImage,
+                $this->image,
+                0, 0, 0, 0,
+                $this->width,
+                $this->height,
+                $this->width,
+                $this->height
+            );
+        imagejpeg(
+            $copyImage, 
+            getcwd().'/images/'.$this->hash.'/'.$this->pathInfo['filename'] . '.jpg', 
+                80);
         foreach ($this->breakpoints as $breakpoint) {
             echo $breakpoint.' / '.$this->width."\n";
             $ratio = $breakpoint / $this->width."\n";
@@ -67,14 +80,24 @@ class Resize
                 $this->width,
                 $this->height
             );
-            imagepng($newImage, getcwd().'/images/'.$this->hash.'/'.$this->getFilename($ratio));
+            imagepng($newImage, getcwd().'/images/'.$this->hash.'/'.$this->getFilename($ratio), 9, PNG_NO_FILTER);
+            imagejpeg(
+                $newImage, 
+                getcwd().'/images/'.$this->hash.'/'.$this->getFilename($ratio, true), 
+                80);
             imagedestroy($newImage);
         }
     }
 
-    protected function getFilename($ratio)
+    protected function getFilename($ratio, $jpg = false)
     {
-        return $this->pathInfo['filename'].'--'.round($this->width * $ratio).'w.'.$this->pathInfo['extension'];
+        $filename = $this->pathInfo['filename'].'--'.round($this->width * $ratio).'w.';
+        
+        if($jpg) {
+            return $filename . 'jpg';
+        }
+
+        return $filename.$this->pathInfo['extension'];
     }
 
     protected function hash()
