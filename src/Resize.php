@@ -45,7 +45,7 @@ class Resize
     public function run()
     {
         $copyImage = imagecreatetruecolor($this->width, $this->height);
-        imagecopyresized($copyImage,
+        imagecopyresampled($copyImage,
                 $this->image,
                 0, 0, 0, 0,
                 $this->width,
@@ -72,14 +72,26 @@ class Resize
                 $height = round($ratio * $this->height);
             }
             $newImage = imagecreatetruecolor($ratio * $this->width, $height);
-            imagecopyresized($newImage,
-                $this->image,
-                0, 0, 0, 0,
-                round($ratio * $this->width),
-                $height,
-                $this->width,
-                $this->height
-            );
+            if($breakpoint == 760) {
+                imagecopyresampled($newImage,
+                    $this->image,
+                    0, 0, 0, 0,
+                    $this->width,
+                    $this->height,
+                    round($ratio * $this->width),
+                    $height
+                );
+            } else {
+                imagecopyresampled($newImage,
+                    $this->image,
+                    0, 0, 0, 0,
+                    round($ratio * $this->width),
+                    $height,
+                    $this->width,
+                    $this->height
+                );
+            }
+            
             imagepng($newImage, getcwd().'/images/'.$this->hash.'/'.$this->getFilename($ratio), 9, PNG_NO_FILTER);
             imagejpeg(
                 $newImage, 
